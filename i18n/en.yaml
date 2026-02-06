@@ -59,7 +59,7 @@
   translation: "or"
 
 - id: cta_contact_url
-  translation: "index.html#contact"
+  translation: "/#contact"
 
 - id: cta_contact_title
   translation: "Contact"

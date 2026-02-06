@@ -66,7 +66,7 @@ blocks:
     buttons:
       - label: "Learn More"
         title: "Consulting Services"
-        url: "consulting.html"
+        url: "/consulting/"
       - label: "Contact Us"
         title: "Contact"
         url: "#contact"
@@ -91,7 +91,7 @@ blocks:
     buttons:
       - label: "View Portfolio"
         title: "Our Work"
-        url: "consulting.html"
+        url: "/consulting/"
       - label: "Start a Project"
         title: "Contact"
         url: "#contact"
@@ -116,7 +116,7 @@ blocks:
     buttons:
       - label: "View Courses"
         title: "Training Programs"
-        url: "consulting.html"
+        url: "/consulting/"
       - label: "Schedule Training"
         title: "Contact"
         url: "#contact"

@@ -34,7 +34,7 @@ weight = 10
 [[footer]]
 parent = "website"
 name = "Services"
-url = "/consulting.html"
+url = "/consulting/"
 weight = 20
 
 [[footer]]
@@ -57,7 +57,7 @@ weight = 10
 
 [[services]]
 name = "Consulting"
-url = "/consulting.html"
+url = "/consulting/"
 weight = 10
 [services.params]
 icon = "uil uil-chart-line"
