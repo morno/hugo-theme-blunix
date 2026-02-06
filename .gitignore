@@ -1,0 +1,19 @@
+# Hugo
+.hugo_build.lock
+resources/
+public/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Hugo Modules
+_vendor/
+go.sum
