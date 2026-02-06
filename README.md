@@ -2,6 +2,11 @@
 
 A professional, clean Hugo theme designed for consulting and service-based businesses. Features a flexible block-based page layout system, multilingual support, and modern responsive design.
 
+## Preview
+
+![Theme Screenshot](https://raw.githubusercontent.com/Blunix-GmbH/hugo-theme-blunix/main/images/screenshot.png)
+![Theme Thumbnail](https://raw.githubusercontent.com/Blunix-GmbH/hugo-theme-blunix/main/images/tn.png)
+
 ## Features
 
 - **Block-based page builder** — Compose pages from reusable content blocks
@@ -326,9 +331,11 @@ To customize styles, copy `static/css/style.css` to your site's `static/css/` di
 
 Create new blocks in your site's `layouts/partials/blocks/` directory. They'll be available alongside theme blocks.
 
-## Support
+## Linux Support
 
 For issues, questions, or contributions, please contact Blunix GmbH or open an issue in the theme repository.
+
+Author information: [Blunix Ansible Role - Apache2](https://github.com/Blunix-GmbH/ansible-role-apache2?tab=readme-ov-file#author-information)
 
 ## License
 
