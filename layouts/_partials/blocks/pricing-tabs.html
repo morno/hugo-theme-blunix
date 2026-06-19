@@ -1,6 +1,6 @@
 <section class="relative" id="{{ .Params.id | default "pricing" }}">
-  {{- $hourlyTabLabel := .Params.tab_hourly_label | default "By the Hour" -}}
-  {{- $monthlyTabLabel := .Params.tab_monthly_label | default "Monthly" -}}
+  {{- $hourlyTabLabel := .Params.tab_hourly_label | default (i18n "pricing_hourly") -}}
+  {{- $monthlyTabLabel := .Params.tab_monthly_label | default (i18n "pricing_monthly") -}}
   {{- $defaultCtaLabel := .Params.default_cta | default "Contact" -}}
   {{- $defaultCtaTitle := .Params.default_cta_title | default $defaultCtaLabel -}}
   <div class="relative container max-w-7xl">

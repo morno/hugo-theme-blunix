@@ -18,7 +18,7 @@ A professional, clean Hugo theme designed for consulting and service-based busin
 
 ## Prerequisites
 
-- **Hugo Extended** (v0.120.0 or later) — [Installation guide](https://gohugo.io/installation/)
+- **Hugo Extended** (v0.158.0 or later) — [Installation guide](https://gohugo.io/installation/)
 - **Go** (v1.21 or later) — Required for Hugo Modules — [Installation guide](https://go.dev/doc/install)
 
 No Node.js or npm required — CSS is pre-compiled.
@@ -98,7 +98,7 @@ Minimum required in `config/_default/config.toml`:
 
 ```toml
 baseURL = 'https://example.com/'
-languageCode = 'en'
+locale = 'en-us'
 title = 'Your Company Name'
 ```
 
@@ -128,21 +128,54 @@ Configure languages in `config/_default/languages.toml`:
 
 ```toml
 [en]
-languageName = "English"
-languageCode = "en-us"
+label = "English"
+locale = "en-us"
 contentDir = "content/en"
 title = "Your Company"
 weight = 1
 
 [de]
-languageName = "Deutsch"
-languageCode = "de"
+label = "Deutsch"
+locale = "de-de"
 contentDir = "content/de"
 title = "Ihr Unternehmen"
 weight = 2
 ```
 
 See the `exampleSite/` directory for a complete working example.
+
+### Navigation Menus
+
+Menus use [Hugo's standard parent/children model](https://gohugo.io/content-management/menus/). Define all entries under a single menu name (e.g. `[[main]]`). Top-level items have no `parent`; dropdown children reference the parent's `identifier`:
+
+```toml
+[[main]]
+identifier = "services"
+name = "Services"
+url = "#"
+weight = 20
+
+[[main]]
+identifier = "consulting"
+parent = "services"
+name = "Consulting"
+url = "/consulting/"
+weight = 10
+[main.params]
+icon = "uil uil-chart-line"
+```
+
+Templates render dropdowns dynamically with `.HasChildren` and `.Children` — no separate `[[services]]` menu and no hardcoded menu names in layouts.
+
+Menu labels use `identifier` as an i18n key with English `name` as fallback:
+
+```go-html-template
+{{ or (T .Identifier) .Name }}
+```
+
+Add site-specific translations in your site's `i18n/{lang}.yaml` (e.g. `services: Tjänster`).
+
+Footer columns use the same pattern: top-level footer items with `identifier` and children via `parent` (see `exampleSite/config/_default/menus.en.toml`).
 
 ## Block-Based Page Layout
 
@@ -151,7 +184,7 @@ Pages are composed from reusable "blocks" defined in front matter. The theme loo
 ### How It Works
 
 1. Define blocks in your page's front matter under the `blocks` key
-2. Each block must have a `block` field matching a partial name in `layouts/partials/blocks/`
+2. Each block must have a `block` field matching a partial name in `layouts/_partials/blocks/`
 3. Blocks render in the order they appear in the array
 4. Additional parameters are passed to the block partial
 
@@ -219,17 +252,20 @@ This streamlined theme build includes the following blocks:
 
 The theme includes translation files in `i18n/`:
 
-- `en.yaml` — English
-- `de.yaml` — German
+- `en.yaml` — English (master, generic UI strings)
+- `de.yaml` — German (optional out-of-the-box)
 
-Use translations in templates:
+**Site-specific languages** (e.g. Swedish for a Swedish client) belong in **your site's** `i18n/` directory, not in the theme:
 
-```go-html-template
-{{ i18n "read_more" }}
-{{ i18n "contact_us" }}
+```
+your-site/
+  i18n/
+    sv.yaml    ← all Swedish UI strings + client-specific CTA, copyright, menu labels
+  config/
+    menus.sv.toml   ← structure only (identifiers, URLs, weights); English `name` as fallback
 ```
 
-Add custom translations by extending these files in your site's `i18n/` directory.
+Hugo merges site i18n over theme i18n. The theme never contains client names, service names, or industry-specific copy.
 
 ## Theme Structure
 
@@ -242,25 +278,20 @@ hugo-theme-blunix/
 ├── exampleSite/         # Demo site
 │   ├── config/
 │   └── content/
-├── i18n/                # Translation files
+├── i18n/                # Translation files (theme: en + de only)
 │   ├── en.yaml
 │   └── de.yaml
 ├── layouts/
-│   ├── _default/        # Default templates
-│   │   ├── baseof.html
-│   │   ├── single.html
-│   │   ├── list.html
-│   │   └── _markup/     # Custom render hooks
-│   ├── blog/            # Blog-specific templates
-│   ├── partials/
-│   │   ├── blocks/      # Block components (14 blocks)
+│   ├── _partials/       # Partials (Hugo 0.146+)
+│   │   ├── blocks/      # Block components
 │   │   ├── components/  # Reusable UI components
-│   │   ├── helpers/     # Helper partials
-│   │   ├── _funcs/      # Utility functions
-│   │   ├── head.html
-│   │   ├── header.html
-│   │   └── footer.html
-│   └── shortcodes/      # Custom shortcodes
+│   │   └── ...
+│   ├── _shortcodes/     # Shortcodes (Hugo 0.146+)
+│   ├── _markup/         # Render hooks (Hugo 0.146+)
+│   ├── blog/            # Blog-specific templates
+│   ├── baseof.html
+│   ├── single.html
+│   └── ...
 ├── static/              # Static assets
 │   ├── css/             # Compiled CSS
 │   ├── js/              # JavaScript (Alpine.js, Prism.js)
@@ -319,8 +350,8 @@ Output goes to `public/` directory.
 To customize a theme template, copy it from the theme's `layouts/` to your site's `layouts/` directory with the same path. Your version will take precedence.
 
 ```bash
-mkdir -p layouts/partials
-cp themes/hugo-theme-blunix/layouts/partials/footer.html layouts/partials/footer.html
+mkdir -p layouts/_partials
+cp themes/hugo-theme-blunix/layouts/_partials/footer.html layouts/_partials/footer.html
 ```
 
 ### Override Styles
@@ -329,7 +360,7 @@ To customize styles, copy `static/css/style.css` to your site's `static/css/` di
 
 ### Add Custom Blocks
 
-Create new blocks in your site's `layouts/partials/blocks/` directory. They'll be available alongside theme blocks.
+Create new blocks in your site's `layouts/_partials/blocks/` directory. They'll be available alongside theme blocks.
 
 ## Linux Support
 

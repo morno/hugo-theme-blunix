@@ -1,11 +1,48 @@
+- id: home
+  translation: "Home"
+
+- id: blog
+  translation: "Blog"
+
+- id: services
+  translation: "Services"
+
+- id: contact
+  translation: "Contact"
+
+- id: articles
+  translation: "Articles"
+
+- id: website
+  translation: "Website"
+
+- id: resources
+  translation: "Resources"
+
+- id: consulting
+  translation: "Consulting"
+
+- id: development
+  translation: "Development"
+
+- id: training
+  translation: "Training"
+
+- id: copyright_notice
+  translation: "Copyright"
+
+- id: footer_social_media
+  translation: "Follow us"
+
+- id: footer_copyright
+  translation: "Copyright {year} Your Company.\n\nAll rights reserved."
+
+# Forms
 - id: address
   translation: "Address"
 
 - id: contact_us
   translation: "Contact us"
-
-- id: contact
-  translation: "Contact"
 
 - id: name
   translation: "Name"
@@ -26,7 +63,7 @@
   translation: "Email address"
 
 - id: send_enquiry
-  translation: "Send Enquiry"
+  translation: "Send enquiry"
 
 - id: book_appointment
   translation: "Book appointment"
@@ -37,17 +74,12 @@
 - id: form_success_message
   translation: "Our team will make contact with you soon."
 
-- id: no_description_available
-  translation: "No description available."
-
-- id: read_the_post
-  translation: "Read the Post"
-
+# CTA blocks
 - id: cta_title
   translation: "Questions? Requests? Suggestions?"
 
 - id: cta_button
-  translation: "Contact us Today!"
+  translation: "Contact us today!"
 
 - id: cta_subtitle
   translation: "We are looking forward to hearing from you!"
@@ -64,8 +96,112 @@
 - id: cta_contact_title
   translation: "Contact"
 
-- id: reading_time_minute
-  translation: "Minute"
+# Blog
+- id: no_description_available
+  translation: "No description available."
 
-- id: reading_time_minutes
-  translation: "Minutes"
+- id: read_the_post
+  translation: "Read the post"
+
+- id: blog_translation_notice
+  translation: "This article is also available in:"
+
+- id: reading_time
+  translation:
+    one: "minute"
+    other: "minutes"
+
+# Legal
+- id: legal_and_privacy_breadcrumb
+  translation: "Legal & Privacy"
+
+- id: email_label
+  translation: "Email"
+
+- id: telephone_label
+  translation: "Telephone"
+
+- id: call_title
+  translation: "Call"
+
+- id: email_title
+  translation: "Send email to"
+
+# 404
+- id: 404_hero_heading
+  translation: "Page not found"
+
+- id: 404_breadcrumb_home
+  translation: "Home"
+
+- id: 404_main_heading
+  translation: "Oops!"
+
+- id: 404_main_paragraph
+  translation: "The page you are looking for does not exist."
+
+- id: 404_home_button_title
+  translation: "Go to homepage"
+
+- id: 404_home_button_label
+  translation: "Back to home"
+
+# Pricing defaults
+- id: pricing_hourly
+  translation: "By the hour"
+
+- id: pricing_monthly
+  translation: "Monthly"
+
+# Misc
+- id: background_alt
+  translation: "Background"
+
+- id: blog_background_alt
+  translation: "Blog background"
+
+- id: language_switcher_label
+  translation: "Language switcher"
+
+- id: main_page_title
+  translation: "Main page"
+
+- id: blog_overview_title
+  translation: "Blog overview"
+
+- id: apply_now
+  translation: "Apply now!"
+
+# Alt text & accessibility
+- id: logo_alt
+  translation: "%s logo"
+
+- id: language_flag_alt
+  translation: "%s flag"
+
+- id: 404_background_alt
+  translation: "404 page background"
+
+- id: error_background_alt
+  translation: "Error page background"
+
+- id: jobs_breadcrumb
+  translation: "Jobs"
+
+- id: company_details_heading
+  translation: "Company Details:"
+
+- id: google_maps_title
+  translation: "Google Maps: %s"
+
+- id: footer_listed_with_and
+  translation: "and"
+
+- id: blog_english_version_title
+  translation: "English version"
+
+- id: blog_external_link_aria
+  translation: "Visit external link: %s"
+
+- id: blog_read_post_aria
+  translation: "Read the blog post: %s"

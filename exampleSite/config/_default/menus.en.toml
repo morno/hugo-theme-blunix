@@ -1,4 +1,5 @@
 [[main]]
+identifier = "home"
 name = "Home"
 url = "/"
 weight = 10
@@ -10,68 +11,80 @@ url = "#"
 weight = 20
 
 [[main]]
+identifier = "consulting"
+parent = "services"
+name = "Consulting"
+url = "/consulting/"
+weight = 10
+[main.params]
+icon = "uil uil-chart-line"
+
+[[main]]
+identifier = "development"
+parent = "services"
+name = "Development"
+url = "/#development"
+weight = 20
+[main.params]
+icon = "uil uil-desktop"
+
+[[main]]
+identifier = "training"
+parent = "services"
+name = "Training"
+url = "/#training"
+weight = 30
+[main.params]
+icon = "uil uil-graduation-cap"
+
+[[main]]
+identifier = "blog"
 name = "Blog"
 url = "/blog/"
 weight = 40
 
 [[main]]
+identifier = "contact"
 name = "Contact"
 url = "/#contact"
 weight = 80
 
 [[footer]]
 identifier = "website"
-name = "Company"
+name = "Website"
 url = "#"
 weight = 10
 
 [[footer]]
 parent = "website"
+identifier = "home"
 name = "Home"
 url = "/"
 weight = 10
 
 [[footer]]
 parent = "website"
+identifier = "services"
 name = "Services"
 url = "/consulting/"
 weight = 20
 
 [[footer]]
 parent = "website"
+identifier = "contact"
 name = "Contact"
 url = "/#contact"
 weight = 30
 
 [[footer]]
-identifier = "hosting"
+identifier = "resources"
 name = "Resources"
 url = "#"
 weight = 20
 
 [[footer]]
-parent = "hosting"
+parent = "resources"
+identifier = "blog"
 name = "Blog"
 url = "/blog/"
 weight = 10
-
-[[services]]
-name = "Consulting"
-url = "/consulting/"
-weight = 10
-[services.params]
-icon = "uil uil-chart-line"
-
-[[services]]
-name = "Development"
-url = "/#development"
-weight = 20
-[services.params]
-icon = "uil uil-desktop"
-
-[[services]]
-name = "Training"
-url = "/#training"
-weight = 30
-[services.params]
-icon = "uil uil-graduation-cap"

@@ -6,7 +6,7 @@ homepage    = "https://github.com/Blunix-GmbH/hugo-theme-blunix"
 demosite    = "https://www.blunix.com/"
 tags        = ["business", "consulting", "multilingual", "responsive", "clean"]
 features    = ["responsive", "multilingual", "seo", "tailwind"]
-min_version = "0.120.0"
+min_version = "0.158.0"
 
 [author]
   name = "Blunix GmbH"

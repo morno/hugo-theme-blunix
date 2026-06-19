@@ -3,10 +3,10 @@
         <a class="logo" href="{{ "/" | relLangURL }}">
             {{ $siteTitle := .Site.Title }}
             {{ with resources.GetMatch "images/navbar/logo-dark.svg" }}
-            <img src="{{ .RelPermalink }}" class="l-dark h-[54px] w-auto" width="200" height="50" fetchpriority="high" alt="{{ $siteTitle }} Logo">
+            <img src="{{ .RelPermalink }}" class="l-dark h-[54px] w-auto" width="200" height="50" fetchpriority="high" alt="{{ printf (i18n "logo_alt") $siteTitle }}">
             {{ end }}
             {{ with resources.GetMatch "images/navbar/logo-light.svg" }}
-            <img src="{{ .RelPermalink }}" class="l-light h-[54px] w-auto" width="200" height="50" fetchpriority="high" alt="{{ $siteTitle }} Logo">
+            <img src="{{ .RelPermalink }}" class="l-light h-[54px] w-auto" width="200" height="50" fetchpriority="high" alt="{{ printf (i18n "logo_alt") $siteTitle }}">
             {{ end }}
         </a>
         <div class="menu-extras">
@@ -19,56 +19,45 @@
         <div id="navigation" class="transition-transform duration-300 ease-in-out">
             <ul class="navigation-menu nav-light justify-end">
                 {{ range .Site.Menus.main }}
-                  {{ if eq .Identifier "services" }}
-                    <li class="has-submenu services-has-submenu parent-parent-menu-item">
-                      <a href="#" onclick="return false;">{{ .Name }}</a><span class="menu-arrow"></span>
-                      <ul class="submenu services-submenu"><li><ul>
-                        {{ range $.Site.Menus.services }}
-                          <li><a href="{{ .URL | safeURL }}" class="sub-menu-item text-base"><i class="{{ .Params.icon }}"></i> {{ .Name }}{{ if .Params.extraSpacing }}&nbsp;&nbsp;&nbsp;{{ end }}</a></li>
+                  {{ if not .Parent }}
+                    {{ if .HasChildren }}
+                    <li class="has-submenu parent-parent-menu-item">
+                      <a href="#" onclick="return false;">{{ or (T .Identifier) .Name }}</a><span class="menu-arrow"></span>
+                      <ul class="submenu"><li><ul>
+                        {{ range .Children }}
+                          <li>
+                            <a href="{{ .URL | safeURL }}" class="sub-menu-item text-base">
+                              {{ with .Params.icon }}<i class="{{ . }}"></i> {{ end }}
+                              {{ or (T .Identifier) .Name }}{{ if .Params.extraSpacing }}&nbsp;&nbsp;&nbsp;{{ end }}
+                            </a>
+                          </li>
                         {{ end }}
                       </ul></li></ul>
                     </li>
-                  {{ else }}
-                    <li><a href="{{ .URL | safeURL }}" class="sub-menu-item">{{ .Name }}</a></li>
+                    {{ else }}
+                    <li><a href="{{ .URL | safeURL }}" class="sub-menu-item">{{ or (T .Identifier) .Name }}</a></li>
+                    {{ end }}
                   {{ end }}
                 {{ end }}
+                {{ $langSites := partialCached "get-language-sites.html" . }}
+                {{ if gt (len $langSites) 1 }}
                 <li class="has-submenu parent-parent-menu-item">
-                    <a href="#" onclick="return false;" aria-label="language switcher">
+                    <a href="#" onclick="return false;" aria-label="{{ i18n "language_switcher_label" }}">
                         <i class="uil uil-globe" style="font-size: 1.3rem;"></i>
                     </a><span class="menu-arrow"></span>
                     <ul class="submenu">
                         <li>
                             <ul id="languageMenu">
                                 {{ $page := $.Page }}
-                                {{/* Build a lookup map for language params from site config */}}
-                                {{ $langParamsMap := dict }}
-                                {{ range $.Site.Languages }}
-                                  {{ $langCode := .Lang }}
-                                  {{/* Access language-specific params from site's language configurations */}}
-                                  {{/* In Hugo, language params are accessible via the site's language configs */}}
+                                {{ range $langSites }}
+                                  {{ $langCode := .Language.Lang }}
                                   {{ $langParams := .Params }}
-                                  {{ if $langParams }}
-                                    {{ $langParamsMap = merge $langParamsMap (dict $langCode $langParams) }}
-                                  {{ end }}
-                                {{ end }}
-                                {{ range $.Site.Languages }}
-                                  {{ $langCode := .Lang }}
-                                  {{/* Get language-specific params from config */}}
-                                  {{ $langParams := index $langParamsMap $langCode }}
+                                  {{ $langLabel := .Language.Label | default $langCode }}
                                   {{ $langFlag := "" }}
                                   {{ $flagAlt := "" }}
-                                  {{/* Get language label - prefer params.label, then params.i18n_label_key, then languageName from config */}}
-                                  {{ $langLabel := .LanguageName }}
-                                  {{ if not $langLabel }}
-                                    {{ $langLabel = .languageName }}
-                                  {{ end }}
-                                  {{ if not $langLabel }}
-                                    {{ $langLabel = $langCode }}
-                                  {{ end }}
                                   {{ if $langParams }}
                                     {{ $langFlag = $langParams.flag_image }}
                                     {{ $flagAlt = $langParams.flag_alt }}
-                                    {{/* Override with label from params if specified */}}
                                     {{ if $langParams.label }}
                                       {{ $langLabel = $langParams.label }}
                                     {{ else if $langParams.i18n_label_key }}
@@ -77,38 +66,22 @@
                                   {{ end }}
                                   {{ $targetURL := "" }}
                                   {{ $isActive := eq $langCode $.Site.Language.Lang }}
-                                  
-                                  {{/* Find translation URL for this language */}}
                                   {{ if $isActive }}
                                     {{ $targetURL = $page.RelPermalink }}
                                   {{ else }}
-                                    {{/* Iterate through AllTranslations to find the one matching this language */}}
                                     {{ range $page.AllTranslations }}
                                       {{ if eq .Language.Lang $langCode }}
                                         {{ $targetURL = .RelPermalink }}
                                       {{ end }}
                                     {{ end }}
-                                    {{/* If no translation found, try home page translations */}}
                                     {{ if not $targetURL }}
-                                      {{ range $.Site.Home.AllTranslations }}
-                                        {{ if eq .Language.Lang $langCode }}
-                                          {{ $targetURL = .RelPermalink }}
-                                        {{ end }}
-                                      {{ end }}
-                                      {{/* Final fallback to home page */}}
-                                      {{ if not $targetURL }}
-                                        {{ $targetURL = $.Site.Home.RelPermalink }}
-                                      {{ end }}
+                                      {{ $targetURL = .Home.RelPermalink }}
                                     {{ end }}
                                   {{ end }}
-                                  
                                 <li>
                                   <a href="{{ $targetURL }}" class="sub-menu-item" data-lang="{{ $langCode }}" {{ if $isActive }}aria-current="true"{{ end }}>
                                     {{ if $langFlag }}
-                                      {{ $altText := $flagAlt }}
-                                      {{ if not $altText }}
-                                        {{ $altText = printf "%s flag" $langLabel }}
-                                      {{ end }}
+                                      {{ $altText := $flagAlt | default (printf (i18n "language_flag_alt") $langLabel) }}
                                       {{ $flagPath := printf "images/navbar/flags/%s.webp" $langFlag }}
                                       {{ with resources.GetMatch $flagPath }}
                                         <img src="{{ .RelPermalink }}" alt="{{ $altText }}" width="{{ .Width }}" height="{{ .Height }}" class="h-5 w-auto lg:w-5 lg:h-5 object-contain flex-shrink-0">
@@ -126,6 +99,7 @@
                         </li>
                     </ul>
                 </li>
+                {{ end }}
             </ul>
         </div>
     </div>

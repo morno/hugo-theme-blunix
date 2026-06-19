@@ -1,44 +1,21 @@
 [en]
-languageName = "English"
-languageCode = "en-us"
+label = "English"
+locale = "en-us"
 contentDir = "content/en"
 title = "Hugo Theme Starter"
 weight = 1
 
 [en.params]
-footer_copyright = "Copyright {year} Your Company.\n\nAll rights reserved."
-footer_social_media = "Follow Us"
-footer_listed_with = "Affiliations"
-footer_listed_with_text = "Proud member of"
 flag_image = "english"
 flag_alt = "English"
-label = "English"
 
-[[en.params.social_media]]
-name = "Twitter"
-url = "https://twitter.com/"
-title = "Follow us on Twitter"
-icon = "uil uil-twitter"
+[de]
+label = "Deutsch"
+locale = "de-de"
+contentDir = "content/de"
+title = "Hugo Theme Starter"
+weight = 2
 
-[[en.params.social_media]]
-name = "LinkedIn"
-url = "https://www.linkedin.com/"
-title = "Connect on LinkedIn"
-icon = "uil uil-linkedin"
-
-[[en.params.social_media]]
-name = "GitHub"
-url = "https://github.com/"
-title = "View our GitHub"
-icon = "uil uil-github"
-
-[[en.params.social_media]]
-name = "Instagram"
-url = "https://instagram.com/"
-title = "Follow on Instagram"
-icon = "uil uil-instagram"
-
-[[en.params.debian_links]]
-name = "Hugo Themes"
-url = "https://themes.gohugo.io/"
-title = "Hugo Themes Directory"
+[de.params]
+flag_image = "german"
+flag_alt = "Deutsch"

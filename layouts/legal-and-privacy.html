@@ -82,8 +82,8 @@
                 <div class="content mt-7">
                     <h2 class="title h5 text-xl font-medium">{{ .Params.content.contact.title }}</h2>
                     <p class="text-slate-000 mt-3">
-                        {{ i18n "email_label" }}: <a href="mailto:{{ .Params.content.contact.email }}" title="Send email to {{ .Params.content.contact.email }}" class="text-primary hover:text-blue-700 font-semibold underline hover:no-underline"> {{ .Params.content.contact.email }}</a></br>
-                        {{ i18n "telephone_label" }}: <a href="tel:{{ .Params.content.contact.phone | replaceRE " " "" | replaceRE "/" "" }}" title="Call Blunix GmbH" class="text-primary hover:text-blue-700 font-semibold underline hover:no-underline"> {{ .Params.content.contact.phone }}</a>
+                        {{ i18n "email_label" }}: <a href="mailto:{{ .Params.content.contact.email }}" title="{{ i18n "email_title" }} {{ .Params.content.contact.email }}" class="text-primary hover:text-blue-700 font-semibold underline hover:no-underline"> {{ .Params.content.contact.email }}</a></br>
+                        {{ i18n "telephone_label" }}: <a href="tel:{{ .Params.content.contact.phone | replaceRE " " "" | replaceRE "/" "" }}" title="{{ i18n "call_title" }} {{ site.Title }}" class="text-primary hover:text-blue-700 font-semibold underline hover:no-underline"> {{ .Params.content.contact.phone }}</a>
                     </p>
                 </div>
             </div>

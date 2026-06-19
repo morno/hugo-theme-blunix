@@ -3,7 +3,7 @@
 <!-- Start Hero -->
 <section class="relative table w-full py-36">
     {{ $backgroundSrc := .Params.image | default "images/blog/background.jpg" }}
-    {{ $altText := .Params.image_alt | default "Blog background" }}
+    {{ $altText := .Params.image_alt | default (i18n "blog_background_alt") }}
     <div class="absolute inset-0">
         {{ partial "components/image-responsive.html" (dict
           "src" $backgroundSrc
@@ -19,7 +19,7 @@
     <div class="absolute inset-0 bg-black opacity-60"></div>
     <div class="container relative">
         <div class="grid grid-cols-1 pb-8 text-center mt-10">
-            <h1 class="font-bold lg:leading-normal leading-normal text-4xl lg:text-7xl mb-5 text-white">{{ .Title | default "The Blunix Blog" }}</h1>
+            <h1 class="font-bold lg:leading-normal leading-normal text-4xl lg:text-7xl mb-5 text-white">{{ .Title | default (i18n "blog_overview_title") }}</h1>
             <div class="text-2xl text-slate-500 max-w-xl mx-auto text-white prose prose-a:text-blue-500 prose-a:hover:text-blue-700 prose-a:font-semibold prose-a:underline hover:prose-a:no-underline max-w-none">
                 {{ .Content | markdownify }}
             </div>
@@ -28,9 +28,9 @@
 
     <div class="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
         <ul class="tracking-[0.5px] mb-0 inline-block">
-           <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white">Home</li>
+           <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white">{{ i18n "home" }}</li>
            <li class="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180"><i class="uil uil-angle-right-b"></i></li>
-           <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white" aria-current="page">Blog</li>
+           <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white" aria-current="page">{{ i18n "blog" }}</li>
         </ul>
     </div>
 </section><!--end section-->
@@ -54,7 +54,7 @@
             <div class="group relative rounded-md border border-gray-200 shadow-sm hover:shadow-md duration-500 ease-in-out overflow-hidden flex flex-col h-full">
                 <div class="grow">
                     <div class="relative overflow-hidden">
-                        <a href="{{ $link }}" {{ if $isExternal }}target="_blank" rel="noopener noreferrer"{{ end }} aria-label="{{ if $isExternal }}Visit external link: {{ .Title }}{{ else }}Read the blogpost: {{ .Title }}{{ end }}" class="block overflow-hidden">
+                        <a href="{{ $link }}" {{ if $isExternal }}target="_blank" rel="noopener noreferrer"{{ end }} aria-label="{{ if $isExternal }}{{ printf (i18n "blog_external_link_aria") .Title }}{{ else }}{{ printf (i18n "blog_read_post_aria") .Title }}{{ end }}" class="block overflow-hidden">
                             {{ if .Params.image }}
                             <div class="w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
                                 <div class="w-full h-full transform duration-500 ease-in-out group-hover:scale-110">
@@ -85,7 +85,7 @@
                         <span class="inline-flex me-2 text-slate-500">
                             {{ partial "components/icon.html" (dict "name" "clock" "class" "w-5 h-5") }}
                         </span>
-                        <span>{{ .ReadingTime }} {{ if eq .ReadingTime 1 }}{{ i18n "reading_time_minute" }}{{ else }}{{ i18n "reading_time_minutes" }}{{ end }}</span>
+                        <span>{{ .ReadingTime }} {{ i18n "reading_time" .ReadingTime }}</span>
                     </li>
                     {{ end }}
                     <li class="flex items-center me-4">

@@ -6,7 +6,7 @@
     {{- $partialPath := printf "blocks/%s" $blockName -}}
     {{- $blockParams := . -}}
 
-    {{- if templates.Exists (printf "partials/%s.html" $partialPath) -}}
+    {{- if templates.Exists (printf "_partials/%s.html" $partialPath) -}}
       {{- partial $partialPath (dict "Root" $root "Params" $blockParams) -}}
     {{- else -}}
       {{- warnf "Partial not found for block type: %s" $blockName -}}

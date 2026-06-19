@@ -1,11 +1,47 @@
+- id: home
+  translation: "Startseite"
+
+- id: blog
+  translation: "Blog"
+
+- id: services
+  translation: "Leistungen"
+
+- id: contact
+  translation: "Kontakt"
+
+- id: articles
+  translation: "Artikel"
+
+- id: website
+  translation: "Website"
+
+- id: resources
+  translation: "Ressourcen"
+
+- id: consulting
+  translation: "Beratung"
+
+- id: development
+  translation: "Entwicklung"
+
+- id: training
+  translation: "Schulung"
+
+- id: copyright_notice
+  translation: "Urheberrecht"
+
+- id: footer_social_media
+  translation: "Folgen Sie uns"
+
+- id: footer_copyright
+  translation: "Copyright {year} Ihr Unternehmen.\n\nAlle Rechte vorbehalten."
+
 - id: address
   translation: "Adresse"
 
 - id: contact_us
   translation: "Kontaktieren Sie uns"
-
-- id: contact
-  translation: "Kontakt"
 
 - id: name
   translation: "Name"
@@ -37,12 +73,6 @@
 - id: form_success_message
   translation: "Wir werden uns bald bei Ihnen melden."
 
-- id: no_description_available
-  translation: "Keine Beschreibung verfügbar."
-
-- id: read_the_post
-  translation: "Beitrag lesen"
-
 - id: cta_title
   translation: "Fragen? Wünsche? Anregungen?"
 
@@ -64,8 +94,106 @@
 - id: cta_contact_title
   translation: "Kontakt"
 
-- id: reading_time_minute
-  translation: "Minute"
+- id: no_description_available
+  translation: "Keine Beschreibung verfügbar."
 
-- id: reading_time_minutes
-  translation: "Minuten"
+- id: read_the_post
+  translation: "Beitrag lesen"
+
+- id: blog_translation_notice
+  translation: "Dieser Artikel ist auch verfügbar in:"
+
+- id: reading_time
+  translation:
+    one: "Minute"
+    other: "Minuten"
+
+- id: legal_and_privacy_breadcrumb
+  translation: "Rechtliches & Datenschutz"
+
+- id: email_label
+  translation: "E-Mail"
+
+- id: telephone_label
+  translation: "Telefon"
+
+- id: call_title
+  translation: "Anrufen"
+
+- id: email_title
+  translation: "E-Mail senden an"
+
+- id: 404_hero_heading
+  translation: "Seite nicht gefunden"
+
+- id: 404_breadcrumb_home
+  translation: "Startseite"
+
+- id: 404_main_heading
+  translation: "Hoppla!"
+
+- id: 404_main_paragraph
+  translation: "Die gesuchte Seite existiert nicht."
+
+- id: 404_home_button_title
+  translation: "Zur Startseite"
+
+- id: 404_home_button_label
+  translation: "Zurück zur Startseite"
+
+- id: pricing_hourly
+  translation: "Stündlich"
+
+- id: pricing_monthly
+  translation: "Monatlich"
+
+- id: background_alt
+  translation: "Hintergrund"
+
+- id: blog_background_alt
+  translation: "Blog-Hintergrund"
+
+- id: language_switcher_label
+  translation: "Sprachauswahl"
+
+- id: main_page_title
+  translation: "Startseite"
+
+- id: blog_overview_title
+  translation: "Blog-Übersicht"
+
+- id: apply_now
+  translation: "Jetzt bewerben!"
+
+- id: logo_alt
+  translation: "%s Logo"
+
+- id: language_flag_alt
+  translation: "%s Flagge"
+
+- id: 404_background_alt
+  translation: "404-Seitenhintergrund"
+
+- id: error_background_alt
+  translation: "Fehlerseiten-Hintergrund"
+
+- id: jobs_breadcrumb
+  translation: "Jobs"
+
+- id: company_details_heading
+  translation: "Firmendetails:"
+
+- id: google_maps_title
+  translation: "Google Maps: %s"
+
+- id: footer_listed_with_and
+  translation: "und"
+
+- id: blog_english_version_title
+  translation: "Englische Version"
+
+- id: blog_external_link_aria
+  translation: "Externen Link besuchen: %s"
+
+- id: blog_read_post_aria
+  translation: "Blogbeitrag lesen: %s"

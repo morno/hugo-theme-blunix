@@ -2,7 +2,7 @@
   <div class="absolute inset-0">
     {{ partial "components/image-responsive.html" (dict
       "src" .Params.background
-      "alt" (.Params.alt | default "background")
+      "alt" (.Params.alt | default (i18n "background_alt"))
       "class" "w-full h-full object-cover object-center"
       "loading" "eager"
       "fetchpriority" "high"

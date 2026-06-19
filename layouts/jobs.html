@@ -3,7 +3,7 @@
   <div class="absolute inset-0">
   {{ partial "components/image-responsive.html" (dict
     "src" (.Params.hero.background | default "/images/index/background.webp")
-    "alt" "background"
+    "alt" (i18n "background_alt")
     "class" "w-full h-full object-cover object-center"
     "loading" "eager"
     "fetchpriority" "high"
@@ -20,9 +20,9 @@
   </div>
   <div class="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
     <ul class="tracking-[0.5px] mb-0 inline-block">
-      <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white"><a href="/">Home</a></li>
+      <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white"><a href="{{ "/" | relLangURL }}">{{ i18n "home" }}</a></li>
       <li class="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180"><i class="uil uil-angle-right-b"></i></li>
-      <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white" aria-current="page">Jobs</li>
+      <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white" aria-current="page">{{ i18n "jobs_breadcrumb" }}</li>
     </ul>
   </div>
 </section>
@@ -42,12 +42,12 @@
           {{ with .Params.company }}
           <div class="rounded-md bg-white shadow-sm">
             <div class="text-center py-8 p-6 border-b border-gray-100">
-              <img src="{{ .logo }}" class="size-24 p-4 shadow-md mx-auto rounded-full block" alt="{{ .name }} Logo">
+              <img src="{{ .logo }}" class="size-24 p-4 shadow-md mx-auto rounded-full block" alt="{{ printf (i18n "logo_alt") .name }}">
               <h2 class="mt-5 text-xl font-semibold mb-0">{{ .name }}</h2>
               <p class="text-slate-500 mb-0">{{ .type }}</p>
             </div>
             <div class="p-6">
-              <h3 class="font-semibold">Company Details:</h3>
+              <h3 class="font-semibold">{{ i18n "company_details_heading" }}</h3>
               <ul class="list-none mt-4">
                 {{ range .details }}
                 <li class="flex mt-2 items-center font-medium">
@@ -56,12 +56,12 @@
                 </li>
                 {{ end }}
               </ul>
-              <a href="/#contact" title="Contact" class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white rounded-md mt-6">Apply now!</a>
+              <a href="{{ i18n "cta_contact_url" | relLangURL }}" title="{{ i18n "cta_contact_title" }}" class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white rounded-md mt-6">{{ i18n "apply_now" }}</a>
             </div>
           </div>
           {{ with .map }}
           <div class="w-full leading-[0] border-0 mt-8">
-            <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" title="Google Maps: {{ .alt }}">
+            <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" title="{{ printf (i18n "google_maps_title") .alt }}">
               {{ partial "components/image-responsive.html" (dict
                 "src" .image
                 "alt" .alt
@@ -78,9 +78,9 @@
       </div>
 
       <div class="lg:col-span-8 md:col-span-7">
-        {{ range .Params.sections }}
-        <h2 class="mb-4 md:text-4xl md:leading-normal text-2xl leading-normal font-semibold{{ if ne .title "Skilled Linux Consultants" }} mt-8{{ end }}">{{ .title }}</h2>
-        {{ $content := .content | markdownify }}
+        {{ range $index, $section := .Params.sections }}
+        <h2 class="mb-4 md:text-4xl md:leading-normal text-2xl leading-normal font-semibold{{ if $index }} mt-8{{ end }}">{{ $section.title }}</h2>
+        {{ $content := $section.content | markdownify }}
         {{ $paragraphs := split $content "<p>" }}
         {{ range $paragraphs }}
         {{ if . }}

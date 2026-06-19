@@ -1,6 +1,6 @@
 <section class="relative flex h-[90vh] flex-col justify-center py-36 md:py-80" id="start">
   {{ $backgroundSrc := .Params.background | default "images/index/background.webp" }}
-  {{ $altText := .Params.alt | default .Params.title | default "Background" }}
+  {{ $altText := .Params.alt | default .Params.title | default (i18n "background_alt") }}
   <div class="absolute inset-0">
     {{ partial "components/image-responsive.html" (dict
       "src" $backgroundSrc

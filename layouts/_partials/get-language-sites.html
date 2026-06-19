@@ -1,0 +1,5 @@
+{{- $sites := slice -}}
+{{- range hugo.Sites -}}
+  {{- $sites = $sites | append . -}}
+{{- end -}}
+{{- return (uniq $sites) -}}

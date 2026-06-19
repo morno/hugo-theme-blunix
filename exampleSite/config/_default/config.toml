@@ -1,7 +1,7 @@
 baseURL = 'https://example.org/'
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
-languageCode = 'en'
+locale = 'en'
 title = 'Hugo Theme Starter'
 description = 'A professional business theme for Hugo'
 theme = "hugo-theme-blunix"
