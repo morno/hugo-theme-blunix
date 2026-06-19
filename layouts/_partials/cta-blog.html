@@ -9,7 +9,7 @@
       <p class="mx-auto max-w-xl text-2xl text-slate-500">
         {{ i18n "cta_looking_for" }}<br />
         {{ $dataKey := printf "blog-cta-links.%s" .Site.Language.Lang }}
-        {{ $data := index .Site.Data $dataKey }}
+        {{ $data := index hugo.Data $dataKey }}
         {{ if $data }}
           {{ $linksLen := len $data.links }}
           {{ range $index, $link := $data.links }}

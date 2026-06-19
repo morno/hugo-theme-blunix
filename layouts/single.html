@@ -3,12 +3,12 @@
     {{ partial "blocks/blocks" . }}
   </div>
   {{ if .Content }}
-    <div>
-      <div class="mx-auto max-w-4xl px-6 py-16 lg:px-8">
-        <div class="prose prose-lg prose-headings:text-secondary prose-a:text-secondary max-w-none text-white">
+    <section class="relative md:py-16 py-12">
+      <div class="container relative">
+        <div class="prose prose-lg mx-auto max-w-3xl text-center text-slate-600 prose-headings:text-slate-900 prose-p:text-slate-600 prose-a:text-blue-600 prose-a:font-semibold hover:prose-a:text-blue-700 prose-a:no-underline hover:prose-a:underline">
           {{ .Content }}
         </div>
       </div>
-    </div>
+    </section>
   {{ end }}
 {{ end }}
