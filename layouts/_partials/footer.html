@@ -16,7 +16,7 @@
                             <h2 class="tracking-[1px] text-white font-semibold">{{ or (T $websiteMenu.Identifier) $websiteMenu.Name }}</h2>
                             <ul class="list-none footer-list mt-6">
                                 {{ range $index, $item := $websiteMenu.Children }}
-                                  <li{{ if ne $index 0 }} class="mt-[10px]"{{ end }}><a href="{{ $item.URL }}" title="{{ or (T $item.Identifier) $item.Name }}" class="text-white hover:text-sky-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ or (T $item.Identifier) $item.Name }}</a></li>
+                                  <li{{ if ne $index 0 }} class="mt-[10px]"{{ end }}><a href="{{ $item.URL }}" title="{{ or (T $item.Identifier) $item.Name }}" class="text-white hover:text-sky-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b" aria-hidden="true"></i> {{ or (T $item.Identifier) $item.Name }}</a></li>
                                 {{ end }}
                             </ul>
                             {{ end }}
@@ -29,7 +29,7 @@
                             <h2 class="tracking-[1px] text-white font-semibold">{{ or (T $resourcesMenu.Identifier) $resourcesMenu.Name }}</h2>
                             <ul class="list-none footer-list mt-6">
                                 {{ range $index, $item := $resourcesMenu.Children }}
-                                  <li{{ if ne $index 0 }} class="mt-[10px]"{{ end }}><a href="{{ $item.URL }}" title="{{ or (T $item.Identifier) $item.Name }}" class="text-white hover:text-sky-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ or (T $item.Identifier) $item.Name }}</a></li>
+                                  <li{{ if ne $index 0 }} class="mt-[10px]"{{ end }}><a href="{{ $item.URL }}" title="{{ or (T $item.Identifier) $item.Name }}" class="text-white hover:text-sky-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b" aria-hidden="true"></i> {{ or (T $item.Identifier) $item.Name }}</a></li>
                                 {{ end }}
                             </ul>
                             {{ end }}
@@ -40,8 +40,8 @@
                             <h2 class="tracking-[1px] text-white font-semibold">{{ i18n "footer_social_media" }}</h2>
                             <ul class="list-none mt-6 space-x-2">
                                 {{ range .Site.Params.social_media }}
-                                  <li class="inline"><a href="{{ .url }}" title="{{ .title }}" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-sky-400 duration-500 text-2xl">
-                                    <i class="{{ .icon }}"></i>
+                                  <li class="inline"><a href="{{ .url }}" aria-label="{{ .title }}" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-sky-400 duration-500 text-2xl">
+                                    <i class="{{ .icon }}" aria-hidden="true"></i>
                                   </a></li>
                                 {{ end }}
                             </ul>

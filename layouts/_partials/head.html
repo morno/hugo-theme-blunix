@@ -34,12 +34,25 @@
   {{ else if .Params.background }}
     {{ $backgroundSrc = .Params.background }}
   {{ else if .IsHome }}
-    {{/* For homepage, read from first hero block if present */}}
-    {{ range first 1 .Params.blocks }}
-      {{ if and (eq .block "hero") .background }}
-        {{ $backgroundSrc = .background }}
+    {{/* Homepage: first hero or hero-breadcrumb block */}}
+    {{ range .Params.blocks }}
+      {{ if or (eq .block "hero") (eq .block "hero-breadcrumb") }}
+        {{ $backgroundSrc = .background | default site.Params.home_hero_background | default site.Params.hero_background }}
+        {{ break }}
       {{ end }}
     {{ end }}
+  {{ else if .Params.blocks }}
+    {{ range .Params.blocks }}
+      {{ if eq .block "hero-breadcrumb" }}
+        {{ $backgroundSrc = .background | default site.Params.home_hero_background | default site.Params.hero_background }}
+        {{ break }}
+      {{ end }}
+    {{ end }}
+  {{ else if eq .Section "blog" }}
+    {{ $backgroundSrc = .Params.image | default site.Params.blog_hero_background | default site.Params.hero_background }}
+  {{ end }}
+  {{ if not $backgroundSrc }}
+    {{ $backgroundSrc = site.Params.hero_background }}
   {{ end }}
 
   {{/* Generate preload if we have a background */}}
@@ -47,10 +60,13 @@
     {{ with resources.GetMatch $backgroundSrc }}
       {{ $img := . }}
       {{ $targetWidth := 1920 }}
+      {{ $isSvg := strings.HasSuffix $backgroundSrc ".svg" }}
       {{ $isWebP := strings.HasSuffix $backgroundSrc ".webp" }}
       {{ $quality := 85 }}
 
-      {{ if lt $img.Width $targetWidth }}
+      {{ if $isSvg }}
+        <link rel="preload" as="image" href="{{ $img.RelPermalink }}" fetchpriority="high" />
+      {{ else if lt $img.Width $targetWidth }}
         {{/* Image is smaller than target - don't upscale, use original */}}
         <link rel="preload" as="image" href="{{ $img.RelPermalink }}" fetchpriority="high" />
       {{ else }}
@@ -83,10 +99,16 @@
   {{ $isBlogSingle := and (eq .Section "blog") .IsPage }}
 
   {{/* Auto-detect if page needs Prism.js for code highlighting */}}
-  {{ $needsPrism := or (and (eq .Section "blog") .IsPage) (eq .Layout "ssh-public-keys") }}
+  {{ $needsPrism := and (eq .Section "blog") .IsPage }}
 
-  {{ $cssContext := dict "isBlogSingle" $isBlogSingle "needsPrism" $needsPrism }}
-  {{ partialCached "css.html" $cssContext $isBlogSingle $needsPrism }}
+  {{ $cssContext := dict "isBlogSingle" $isBlogSingle "needsPrism" $needsPrism "page" . }}
+  {{ $hasContactForm := false }}
+  {{ with .Params.blocks }}
+    {{ range . }}
+      {{ if eq .block "contact-form" }}{{ $hasContactForm = true }}{{ end }}
+    {{ end }}
+  {{ end }}
+  {{ partialCached "css.html" $cssContext $isBlogSingle $needsPrism $hasContactForm }}
 
   {{ partial "opengraph.html" . }}
   {{ partial "twitter_cards.html" . }}

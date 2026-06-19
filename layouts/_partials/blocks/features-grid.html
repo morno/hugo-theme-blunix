@@ -4,13 +4,22 @@
       <h2 class="mb-4 md:text-4xl md:leading-normal text-2xl leading-normal font-semibold">{{ .Params.title }}</h2>
       {{ with .Params.subtitle }}<p class="text-slate-500 text-2xl duration-500 mt-3 mx-auto max-w-3xl">{{ . }}</p>{{ end }}
     </div>
-    <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 mt-8 gap-[30px]">
+    {{ $count := len .Params.items }}
+    {{ $gridCols := "grid-cols-1" }}
+    {{ if eq $count 2 }}
+      {{ $gridCols = "grid-cols-1 md:grid-cols-2" }}
+    {{ else if eq $count 3 }}
+      {{ $gridCols = "grid-cols-1 md:grid-cols-3" }}
+    {{ else if ge $count 4 }}
+      {{ $gridCols = "grid-cols-1 md:grid-cols-2 lg:grid-cols-4" }}
+    {{ end }}
+    <div class="grid {{ $gridCols }} mt-8 gap-[30px] justify-items-stretch">
       {{ range .Params.items }}
       <div class="group relative p-6 shadow-xs rounded-xl bg-white overflow-hidden text-center">
-        <div class="relative overflow-hidden text-transparent -m-3">
+        <div class="relative mx-auto size-24 text-transparent">
           {{ partial "components/icon.html" (dict "name" "hexagon" "class" "size-24 fill-blue-600/5") }}
-          <div class="absolute top-0 left-0 w-24 h-24 text-primary rounded-xl duration-500 text-3xl flex items-center justify-center">
-            <i class="{{ .icon }} leading-none inline-flex items-center justify-center"></i>
+          <div class="absolute inset-0 flex items-center justify-center text-primary text-3xl">
+            <i class="{{ .icon }} leading-none"></i>
           </div>
         </div>
         <div class="mt-6">

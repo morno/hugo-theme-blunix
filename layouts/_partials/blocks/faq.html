@@ -8,7 +8,7 @@
     </div>
     <div class="relative grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
       <div class="md:col-span-6">
-        <div id="accordion-collapse" data-accordion="collapse">
+        <div id="accordion-collapse-left" data-accordion="collapse">
           {{ $split := div (add (len .Params.items) 1) 2 }}
           {{ range $index, $item := first $split .Params.items }}
             <div class="{{ if ne $index 0 }}mt-4 {{ end }}relative shadow-sm rounded-md overflow-hidden">
@@ -20,7 +20,7 @@
               </h2>
               <div id="accordion-collapse-body-{{ $index }}" class="{{ if eq $index 0 }}block{{ else }}hidden{{ end }}" aria-labelledby="accordion-collapse-heading-{{ $index }}">
                 <div class="p-5">
-                  <div class="text-slate-500 text-2xl [&_a]:text-blue-500 [&_a]:font-semibold [&_a]:underline [&_a]:transition-colors [&_a]:duration-300 [&_a:hover]:text-blue-600 [&_a:hover]:no-underline">{{ $item.a | markdownify }}</div>
+                  <div class="text-slate-500 text-2xl [&_a]:text-blue-700 [&_a]:font-semibold [&_a]:underline [&_a]:transition-colors [&_a]:duration-300 [&_a:hover]:text-blue-800 [&_a:hover]:no-underline">{{ $item.a | markdownify }}</div>
                 </div>
               </div>
             </div>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="md:col-span-6">
-        <div id="accordion-collapse" data-accordion="collapse">
+        <div id="accordion-collapse-right" data-accordion="collapse">
           {{ $split := div (add (len .Params.items) 1) 2 }}
           {{ range $index, $item := after $split .Params.items }}
             {{ $globalIndex := add $split $index }}
@@ -41,7 +41,7 @@
               </h2>
               <div id="accordion-collapse-body-{{ $globalIndex }}" class="hidden" aria-labelledby="accordion-collapse-heading-{{ $globalIndex }}">
                 <div class="p-5">
-                  <div class="text-slate-500 text-2xl [&_a]:text-blue-500 [&_a]:font-semibold [&_a]:underline [&_a]:transition-colors [&_a]:duration-300 [&_a:hover]:text-blue-600 [&_a:hover]:no-underline">{{ $item.a | markdownify }}</div>
+                  <div class="text-slate-500 text-2xl [&_a]:text-blue-700 [&_a]:font-semibold [&_a]:underline [&_a]:transition-colors [&_a]:duration-300 [&_a:hover]:text-blue-800 [&_a:hover]:no-underline">{{ $item.a | markdownify }}</div>
                 </div>
               </div>
             </div>

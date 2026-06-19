@@ -71,7 +71,52 @@
   translation: "Vielen Dank für Ihre Nachricht."
 
 - id: form_success_message
-  translation: "Wir werden uns bald bei Ihnen melden."
+  translation: "Vielen Dank! Wir melden uns so schnell wie möglich."
+
+- id: form_phone_optional
+  translation: "optional"
+
+- id: form_phone_placeholder
+  translation: "z. B. 0170 1234567"
+
+- id: form_honeypot_label
+  translation: "Dieses Feld leer lassen"
+
+- id: form_privacy_ack_html
+  translation: 'Ich habe die <a href="%s">Datenschutzerklärung</a> gelesen.'
+
+- id: form_privacy_notice
+  translation: "Wir verarbeiten Ihre Angaben, um Ihre Anfrage zu bearbeiten und zu antworten. Telefon ist optional."
+
+- id: form_report_a11y
+  translation: "Ein Barrierefreiheitsproblem melden"
+
+- id: form_submitting
+  translation: "Wird gesendet..."
+
+- id: form_error_validation
+  translation: "Bitte prüfen Sie die markierten Felder und versuchen Sie es erneut."
+
+- id: form_error_generic
+  translation: "Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut."
+
+- id: form_error_network
+  translation: "Senden derzeit nicht möglich. Bitte Verbindung prüfen und erneut versuchen."
+
+- id: form_err_name
+  translation: "Bitte geben Sie Ihren Namen ein."
+
+- id: form_err_email
+  translation: "Bitte geben Sie Ihre E-Mail-Adresse ein."
+
+- id: form_err_email_invalid
+  translation: "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+
+- id: form_err_message
+  translation: "Bitte geben Sie eine Nachricht ein."
+
+- id: form_err_privacy
+  translation: "Bitte bestätigen Sie, dass Sie die Datenschutzerklärung gelesen haben."
 
 - id: cta_title
   translation: "Fragen? Wünsche? Anregungen?"
@@ -197,3 +242,21 @@
 
 - id: blog_read_post_aria
   translation: "Blogbeitrag lesen: %s"
+
+- id: skip_to_content
+  translation: "Zum Inhalt springen"
+
+- id: back_to_top_label
+  translation: "Nach oben"
+
+- id: nav_main_label
+  translation: "Hauptnavigation"
+
+- id: breadcrumb_nav_label
+  translation: "Brotkrumen"
+
+- id: menu_toggle_label
+  translation: "Menü öffnen oder schließen"
+
+- id: opens_in_new_tab
+  translation: "(öffnet in neuem Tab)"

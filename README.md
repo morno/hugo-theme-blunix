@@ -18,61 +18,21 @@ A professional, clean Hugo theme designed for consulting and service-based busin
 
 ## Prerequisites
 
-- **Hugo Extended** (v0.158.0 or later) — [Installation guide](https://gohugo.io/installation/)
-- **Go** (v1.21 or later) — Required for Hugo Modules — [Installation guide](https://go.dev/doc/install)
+- **Hugo Extended** (v0.146.0 or later) — [Installation guide](https://gohugo.io/installation/)
 
-No Node.js or npm required — CSS is pre-compiled.
+No Node.js, npm, or Go required for the Quick Start setup — CSS is pre-compiled.
 
 ## Installation
 
-### As a Hugo Module (Recommended)
-
-Initialize your site as a Hugo Module (if not already):
-
-```bash
-hugo mod init github.com/<your-username>/<your-site>
-```
-
-Add the theme to your `hugo.toml` (or `config/_default/hugo.toml`):
-
-```toml
-[module]
-  [[module.imports]]
-    path = "github.com/Blunix-GmbH/hugo-theme-blunix"
-```
-
-Then download the module:
-
-```bash
-hugo mod get -u
-```
-
-> **Note:** When using Hugo Modules, you do **not** need to set `theme = "..."` in your config. The module import replaces that directive.
-
-### As a Git Submodule
+### Quick Start (Git Submodule)
 
 From your Hugo site root:
 
 ```bash
-git submodule add https://github.com/Blunix-GmbH/hugo-theme-blunix.git themes/hugo-theme-blunix
+git submodule add https://github.com/morno/hugo-theme-blunix.git themes/hugo-theme-blunix
 ```
 
-Then activate the theme in your `config.toml` or `config/_default/config.toml`:
-
-```toml
-theme = "hugo-theme-blunix"
-```
-
-### As a Local Theme Folder (No Modules/Submodules)
-
-Copy or clone the theme directly into your site's `themes/` directory:
-
-```bash
-mkdir -p themes
-git clone https://github.com/Blunix-GmbH/hugo-theme-blunix.git themes/hugo-theme-blunix
-```
-
-Then set the theme in your config:
+Activate the theme in your root `hugo.toml`:
 
 ```toml
 theme = "hugo-theme-blunix"
@@ -90,16 +50,48 @@ Or if you've already cloned without submodules:
 git submodule update --init --recursive
 ```
 
+### As a Hugo Module (Optional)
+
+If you prefer Hugo Modules, initialize your site and add the theme import:
+
+```bash
+hugo mod init github.com/<your-username>/<your-site>
+```
+
+```toml
+[module]
+  [[module.imports]]
+    path = "github.com/morno/hugo-theme-blunix"
+```
+
+```bash
+hugo mod get -u
+```
+
+> When using Hugo Modules, you do **not** need `theme = "..."` in your config.
+
+### As a Local Theme Folder
+
+```bash
+mkdir -p themes
+git clone https://github.com/morno/hugo-theme-blunix.git themes/hugo-theme-blunix
+```
+
+```toml
+theme = "hugo-theme-blunix"
+```
+
 ## Configuration
 
 ### Basic Configuration
 
-Minimum required in `config/_default/config.toml`:
+Minimum required in `hugo.toml`:
 
 ```toml
 baseURL = 'https://example.com/'
-locale = 'en-us'
+defaultContentLanguage = 'en'
 title = 'Your Company Name'
+theme = 'hugo-theme-blunix'
 ```
 
 ### Parameters
@@ -241,7 +233,8 @@ This streamlined theme build includes the following blocks:
 - **`text-image-bg`** — Text with image and section background styling
 - **`features-grid`** — Grid of features with icons
 - **`process-timeline`** — Process steps timeline
-- **`faq`** — Accordion-style FAQ
+- **`faq`** — Accordion-style FAQ (best for short Q&A on marketing pages)
+- **`content-sections`** — Open sections with optional per-section `id` anchors (legal, accessibility statements)
 - **`pricing-tabs`** — Tabbed pricing tables
 - **`ethics-accordion`** — Expandable ethics/values section
 - **`partners-scroller`** — Scrolling partner logos
@@ -269,53 +262,60 @@ Hugo merges site i18n over theme i18n. The theme never contains client names, se
 
 ## Theme Structure
 
+This theme follows the [Hugo v0.146+ template system](https://gohugo.io/templates/new-templatesystem-overview/):
+
 ```
 hugo-theme-blunix/
-├── archetypes/          # Content templates
-│   └── default.md
-├── assets/              # Assets for Hugo Pipes processing
-│   └── images/          # Theme images (logo, icons)
-├── exampleSite/         # Demo site
-│   ├── config/
-│   └── content/
-├── i18n/                # Translation files (theme: en + de only)
-│   ├── en.yaml
-│   └── de.yaml
+├── archetypes/
+├── assets/
+├── exampleSite/
+├── i18n/
 ├── layouts/
-│   ├── _partials/       # Partials (Hugo 0.146+)
+│   ├── _partials/       # Partials (layouts/_partials)
 │   │   ├── blocks/      # Block components
 │   │   ├── components/  # Reusable UI components
-│   │   └── ...
-│   ├── _shortcodes/     # Shortcodes (Hugo 0.146+)
-│   ├── _markup/         # Render hooks (Hugo 0.146+)
-│   ├── blog/            # Blog-specific templates
+│   │   └── hooks/       # head-css, body-end extension points
+│   ├── _shortcodes/
+│   ├── _markup/         # Render hooks
+│   ├── blog/
+│   │   ├── section.html # Blog index (section kind)
+│   │   └── page.html    # Blog posts (page kind)
 │   ├── baseof.html
-│   ├── single.html
-│   └── ...
-├── static/              # Static assets
-│   ├── css/             # Compiled CSS
-│   ├── js/              # JavaScript (Alpine.js, Prism.js)
-│   ├── fonts/           # Web fonts (Nunito, EB Garamond)
-│   ├── libs/            # Third-party libraries
-│   └── images/          # Static images
-├── go.mod               # Hugo Modules definition
-├── hugo.toml            # Module configuration
-├── theme.toml           # Theme metadata
+│   ├── home.html        # Homepage (home kind)
+│   ├── page.html        # Regular pages with blocks
+│   ├── section.html     # Section indexes with blocks
+│   └── 404.html         # Custom 404 page
+├── static/
+├── go.mod               # For Hugo Module consumers
+├── theme.toml
 └── LICENSE
 ```
+
+### Page templates
+
+| Template | Hugo page kind | Used for |
+|----------|----------------|----------|
+| `home.html` | `home` | Site homepage |
+| `page.html` | `page` | Pages with `blocks` in front matter |
+| `section.html` | `section` | Section indexes (e.g. `/services/`) |
+| `blog/section.html` | `section` | Blog post listing |
+| `blog/page.html` | `page` | Individual blog posts |
+| `404.html` | — | Not-found page |
+
+Pages are built from **blocks** defined in front matter — no custom `layout:` values are required for standard pages.
 
 ## Updating the Theme
 
 ### Hugo Modules
 
 ```bash
-hugo mod get -u github.com/Blunix-GmbH/hugo-theme-blunix
+hugo mod get -u github.com/morno/hugo-theme-blunix
 ```
 
 To pin to a specific version:
 
 ```bash
-hugo mod get github.com/Blunix-GmbH/hugo-theme-blunix@v1.0.0
+hugo mod get github.com/morno/hugo-theme-blunix@v1.0.0
 ```
 
 ### Git Submodule

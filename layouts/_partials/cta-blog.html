@@ -8,19 +8,8 @@
       <h3 class="mb-4 text-2xl leading-normal font-semibold md:text-3xl md:leading-normal">{{ i18n "cta_subtitle" }}</h3>
       <p class="mx-auto max-w-xl text-2xl text-slate-500">
         {{ i18n "cta_looking_for" }}<br />
-        {{ $dataKey := printf "blog-cta-links.%s" .Site.Language.Lang }}
-        {{ $data := index hugo.Data $dataKey }}
-        {{ if $data }}
-          {{ $linksLen := len $data.links }}
-          {{ range $index, $link := $data.links }}
-            <a class="font-semibold text-primary underline hover:text-blue-700 hover:no-underline" href="{{ $link.url }}" title="{{ $link.title }}">{{ $link.text }}</a>{{ if eq (add $index 1) $linksLen }}?{{ else if eq (add $index 2) $linksLen }} {{ i18n "cta_or" }}<br />{{ else }},<br />{{ end }}
-          {{ end }}
-        {{ end }}
+        {{ partial "cta-links.html" (dict "Page" .) }}
       </p>
     </div>
-    <!--end grid-->
   </div>
-  <!--end container-->
 </section>
-<!--end section-->
-

@@ -72,7 +72,52 @@
   translation: "Thank you for getting in touch."
 
 - id: form_success_message
-  translation: "Our team will make contact with you soon."
+  translation: "Thank you! We will get back to you as soon as we can."
+
+- id: form_phone_optional
+  translation: "optional"
+
+- id: form_phone_placeholder
+  translation: "e.g. +1 234 567 890"
+
+- id: form_honeypot_label
+  translation: "Leave this field empty"
+
+- id: form_privacy_ack_html
+  translation: 'I have read the <a href="%s">privacy policy</a>.'
+
+- id: form_privacy_notice
+  translation: "We process your details to handle your enquiry and respond. Phone is optional."
+
+- id: form_report_a11y
+  translation: "Report an accessibility issue"
+
+- id: form_submitting
+  translation: "Sending..."
+
+- id: form_error_validation
+  translation: "Please check the highlighted fields and try again."
+
+- id: form_error_generic
+  translation: "Something went wrong. Please try again later."
+
+- id: form_error_network
+  translation: "Could not send right now. Check your connection and try again."
+
+- id: form_err_name
+  translation: "Please enter your name."
+
+- id: form_err_email
+  translation: "Please enter your email address."
+
+- id: form_err_email_invalid
+  translation: "Please enter a valid email address."
+
+- id: form_err_message
+  translation: "Please enter a message."
+
+- id: form_err_privacy
+  translation: "Please confirm that you have read the privacy policy."
 
 # CTA blocks
 - id: cta_title
@@ -205,3 +250,21 @@
 
 - id: blog_read_post_aria
   translation: "Read the blog post: %s"
+
+- id: skip_to_content
+  translation: "Skip to content"
+
+- id: back_to_top_label
+  translation: "Back to top"
+
+- id: nav_main_label
+  translation: "Main navigation"
+
+- id: breadcrumb_nav_label
+  translation: "Breadcrumbs"
+
+- id: menu_toggle_label
+  translation: "Open or close menu"
+
+- id: opens_in_new_tab
+  translation: "(opens in new tab)"

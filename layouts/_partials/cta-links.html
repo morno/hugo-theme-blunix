@@ -1,0 +1,39 @@
+{{- /*
+  Renderar länkar under "Letar du efter".
+  Dict: Page (required), Links (optional override från block front matter).
+  Data: hugo.Data.cta-links.<lang>.<set>.links
+*/ -}}
+{{- $page := .Page -}}
+{{- $links := .Links -}}
+{{- if not $links -}}
+  {{- $lang := $page.Language.Lang -}}
+  {{- $langData := index (index hugo.Data "cta-links") $lang -}}
+  {{- if $langData -}}
+    {{- $set := "default" -}}
+    {{- if eq $page.Section "blog" -}}
+      {{- $set = "blog" -}}
+    {{- else if eq $page.File.BaseFileName "kontakt" -}}
+      {{- $set = "contact" -}}
+    {{- else if eq $page.Section "tjanster" -}}
+      {{- $set = "services" -}}
+      {{- $pageKey := $page.File.BaseFileName -}}
+      {{- if and (ne $pageKey "_index") (index $langData $pageKey) -}}
+        {{- $set = $pageKey -}}
+      {{- end -}}
+    {{- end -}}
+    {{- with index $langData $set -}}
+      {{- $links = .links -}}
+    {{- end -}}
+    {{- if not $links -}}
+      {{- with $langData.default -}}
+        {{- $links = .links -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- with $links -}}
+  {{- $linksLen := len . -}}
+  {{- range $index, $link := . -}}
+    <a class="font-semibold text-primary underline hover:text-blue-700 hover:no-underline" href="{{ $link.url }}" title="{{ $link.title }}">{{ $link.text }}</a>{{ if eq (add $index 1) $linksLen }}?{{ else if eq (add $index 2) $linksLen }} {{ i18n "cta_or" }}<br />{{ else }},<br />{{ end }}
+  {{- end -}}
+{{- end -}}

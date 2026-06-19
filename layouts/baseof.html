@@ -1,20 +1,25 @@
 <!doctype html>
-<html lang="{{ .Site.Language.Lang }}" class="light overflow-x-hidden scroll-smooth" dir="ltr">
+<html lang="{{ site.Language.Lang }}" class="light overflow-x-hidden scroll-smooth" dir="{{ or site.Language.Direction `ltr` }}">
   {{- partial "head.html" . -}}
   <body class="font-nunito overflow-x-hidden text-base text-black bg-white">
+    <a class="skip-link" href="#main">{{ i18n "skip_to_content" }}</a>
+    <span id="a11y-opens-new-tab" class="visually-hidden" hidden>{{ i18n "opens_in_new_tab" }}</span>
     {{- partial "header.html" . -}}
+    <main id="main">
     {{- block "main" . }}{{- end }}
+    </main>
     {{- partial "footer.html" . -}}
     {{- partial "lightbox.html" . -}}
 
-    <a href="#start" onclick="topFunction()" id="back-to-top" class="back-to-top fixed end-5 bottom-5 z-10 hidden size-9 rounded-full bg-blue-600 text-center text-lg leading-9 text-white"><i class="uil uil-arrow-up"></i></a>
+    <a href="#start" onclick="topFunction()" id="back-to-top" class="back-to-top fixed end-5 bottom-5 z-10 hidden size-9 rounded-full bg-blue-600 text-center text-lg leading-9 text-white" aria-label="{{ i18n "back_to_top_label" }}"><i class="uil uil-arrow-up" aria-hidden="true"></i></a>
 
-    {{/* Prism.js - Only load for blog posts and ssh-public-keys page */}}
-    {{ $needsPrism := or (and (eq .Section "blog") .IsPage) (eq .Layout "ssh-public-keys") }}
+    {{/* Prism.js - Only load for blog posts with code blocks */}}
+    {{ $needsPrism := and (eq .Section "blog") .IsPage }}
     {{ if $needsPrism }}
     <script src="/js/prism.min.js"></script>
     {{ end }}
 
     <script defer src="/js/scripts.js"></script>
+    {{- partial "hooks/body-end.html" . -}}
   </body>
 </html>

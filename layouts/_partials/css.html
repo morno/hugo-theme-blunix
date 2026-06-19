@@ -1,8 +1,10 @@
-{{/* Context is a dict with isBlogSingle and needsPrism flags */}}
+{{/* Context: dict with isBlogSingle, needsPrism, and page */}}
 {{ $isBlogSingle := .isBlogSingle }}
 {{ $needsPrism := .needsPrism }}
+{{ $page := .page }}
 
 <link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/accessibility.css" />
 
 {{/* External CSS Libraries */}}
 <link rel="preload" href="/libs/@iconscout/unicons/css/line.min.css" as="style" onload="this.rel='stylesheet'" />
@@ -12,7 +14,11 @@
 <link rel="stylesheet" href="/css/blog-styles.min.css" />
 {{ end }}
 
-{{/* Prism Code Highlighting - Only load for blog posts and ssh-public-keys page */}}
+{{/* Prism Code Highlighting - Only load for blog posts */}}
 {{ if $needsPrism }}
 <link rel="stylesheet" href="/css/prism.min.css" />
 {{ end }}
+
+{{- with $page -}}
+  {{- partial "hooks/head-css.html" . -}}
+{{- end -}}

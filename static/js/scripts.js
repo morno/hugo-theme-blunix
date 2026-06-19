@@ -56,15 +56,69 @@ hasSubMenuItems.forEach((item) => {
   });
 });
 
-// Toggle Menu (mobile)
+// Toggle Menu (mobile) – accessible keyboard support
+(function initAccessibleMobileMenu() {
+  const toggle = document.getElementById("isToggle");
+  const menu = document.getElementById("navigation");
+  if (!toggle || !menu) return;
+
+  const focusFirstMenuItem = () => {
+    const firstLink = menu.querySelector('a[href]:not([href="#"])');
+    if (firstLink) firstLink.focus();
+  };
+
+  const isMenuOpen = () => toggle.classList.contains("open");
+
+  const closeMenu = (returnFocus = false) => {
+    if (!isMenuOpen()) return;
+    toggle.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+    menu.style.display = "none";
+    if (returnFocus) toggle.focus();
+  };
+
+  const openMenu = (moveFocus = false) => {
+    if (isMenuOpen()) return;
+    toggle.classList.add("open");
+    toggle.setAttribute("aria-expanded", "true");
+    menu.style.display = "block";
+    if (moveFocus) focusFirstMenuItem();
+  };
+
+  toggle.addEventListener("click", () => {
+    if (isMenuOpen()) closeMenu(false);
+    else openMenu(false);
+  });
+
+  toggle.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (isMenuOpen()) closeMenu(false);
+      else openMenu(true);
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu(true);
+  });
+
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (!(t instanceof Element)) return;
+    if (toggle.contains(t) || menu.contains(t)) return;
+    closeMenu(false);
+  });
+
+  menu.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => {
+      if (window.matchMedia("(max-width: 991px)").matches) closeMenu(false);
+    });
+  });
+})();
+
 function toggleMenu() {
-  document.getElementById("isToggle").classList.toggle("open");
-  var isOpen = document.getElementById("navigation");
-  if (isOpen.style.display === "block") {
-    isOpen.style.display = "none";
-  } else {
-    isOpen.style.display = "block";
-  }
+  const toggle = document.getElementById("isToggle");
+  if (toggle) toggle.click();
 }
 
 // Menu Active State
@@ -270,11 +324,14 @@ document.querySelectorAll("[data-calc-target]").forEach((input) => {
 // Make all external links open in new tabs
 document.addEventListener("DOMContentLoaded", function () {
   const links = document.querySelectorAll("a[href]");
+  const opensNewTabEl = document.getElementById("a11y-opens-new-tab");
+  const opensNewTabText = opensNewTabEl
+    ? ` ${opensNewTabEl.textContent.trim()}`
+    : "";
 
   links.forEach((link) => {
     const href = link.getAttribute("href");
 
-    // Check if link is external (starts with http/https and doesn't contain current domain)
     if (
       href &&
       (href.startsWith("http://") || href.startsWith("https://")) &&
@@ -282,6 +339,17 @@ document.addEventListener("DOMContentLoaded", function () {
     ) {
       link.setAttribute("target", "_blank");
       link.setAttribute("rel", "noopener noreferrer");
+
+      if (
+        opensNewTabText &&
+        !link.querySelector(".visually-hidden") &&
+        !link.getAttribute("aria-label")
+      ) {
+        const hint = document.createElement("span");
+        hint.className = "visually-hidden";
+        hint.textContent = opensNewTabText;
+        link.appendChild(hint);
+      }
     }
   });
 });

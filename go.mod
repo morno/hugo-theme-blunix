@@ -1,3 +1,3 @@
-module github.com/Blunix-GmbH/hugo-theme-blunix
+module github.com/morno/hugo-theme-blunix
 
 go 1.21
